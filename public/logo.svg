@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" fill="none">
+  <path d="M110 30 L165 50 V95 C165 130 140 153 110 165 C80 153 55 130 55 95 V50 Z" stroke="#ff5a1f" stroke-width="4" stroke-linejoin="round" fill="none"/>
+  <path d="M88 71 L114 95 L88 119" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M120 71 L146 95 L120 119" stroke="#ff5a1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="195" y="115" font-family="Inter, system-ui, sans-serif" font-size="52" font-weight="600" fill="#e6edf3">Rush<tspan fill="#ff5a1f">Sec</tspan></text>
+</svg>

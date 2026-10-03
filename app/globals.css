@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: theme('colors.border');
+  }
+  
+  body {
+    @apply bg-background text-primary antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-primary;
+  }
+
+  /* Focus rings */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted;
+  }
+}
+
+@layer components {
+  /* MDX prose styles */
+  .prose {
+    @apply text-primary leading-relaxed;
+  }
+  .prose h1 { @apply text-3xl font-semibold mt-10 mb-4 text-primary; }
+  .prose h2 { @apply text-2xl font-semibold mt-8 mb-3 text-primary; }
+  .prose h3 { @apply text-xl font-semibold mt-6 mb-2 text-primary; }
+  .prose h4 { @apply text-lg font-semibold mt-4 mb-2 text-primary; }
+  .prose p { @apply mb-4 text-primary/90; }
+  .prose a { @apply text-accent hover:underline; }
+  .prose strong { @apply font-semibold text-primary; }
+  .prose ul { @apply list-disc pl-6 mb-4 space-y-1; }
+  .prose ol { @apply list-decimal pl-6 mb-4 space-y-1; }
+  .prose li { @apply text-primary/90; }
+  .prose blockquote {
+    @apply border-l-2 border-accent pl-4 italic text-muted my-4;
+  }
+  .prose hr { @apply border-border my-8; }
+  .prose img { @apply rounded-lg my-6; }
+  .prose table { @apply w-full border-collapse my-6; }
+  .prose th { @apply border border-border px-4 py-2 text-left font-semibold bg-surface; }
+  .prose td { @apply border border-border px-4 py-2; }
+  .prose code:not(pre code) {
+    @apply font-mono text-sm bg-surface px-1.5 py-0.5 rounded text-accent;
+  }
+  .prose pre {
+    @apply bg-surface border border-border rounded-lg p-4 overflow-x-auto my-6 text-sm;
+  }
+  .prose pre code {
+    @apply bg-transparent p-0 text-primary;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

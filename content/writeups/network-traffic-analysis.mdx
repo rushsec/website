@@ -1,0 +1,54 @@
+---
+title: "Network Traffic Analysis and Malware Forensics"
+date: "2026-07-10"
+description: "Deep dive into a malicious PCAP file to extract malware signatures and understand the infection chain. (Placeholder content)"
+category: "Forensics"
+difficulty: "Hard"
+tags: ["wireshark", "pcap", "forensics", "malware"]
+published: true
+---
+
+> **Scope & Authorization**: This writeup covers analysis of a provided PCAP file containing simulated malicious traffic. All testing was performed on systems I own or have explicit authorization to test.
+
+## Initial Assessment
+
+We are provided with a PCAP file named `capture.pcapng` and tasked with identifying the malware infection chain. The first step is to open the file in Wireshark and get a high-level overview of the traffic.
+
+Looking at the Protocol Hierarchy Statistics (`Statistics -> Protocol Hierarchy`), we can see a significant amount of HTTP and DNS traffic.
+
+## Traffic Analysis
+
+### Malicious Document Download
+
+Filtering for HTTP traffic (`http.request`), we notice a suspicious GET request to a domain with a low reputation.
+
+```
+GET /invoice_update.doc HTTP/1.1
+Host: maliciousexample.com
+```
+
+Following the TCP stream for this request reveals that an executable file was downloaded, despite the `.doc` extension. The magic bytes `MZ` in the response body confirm this is a Windows PE file.
+
+We can export this object (`File -> Export Objects -> HTTP`) to analyze it further. Calculating the SHA256 hash of the extracted file and checking VirusTotal confirms it is a known malware dropper.
+
+### Command and Control (C2) Communication
+
+After the initial download, we observe a series of DNS requests to randomly generated domains, characteristic of a Domain Generation Algorithm (DGA).
+
+Shortly after, a successful DNS resolution leads to an HTTPS connection. While the payload is encrypted, the TLS handshake reveals the Server Name Indication (SNI) and the certificate details.
+
+```
+tls.handshake.extensions_server_name == "c2.badactor.net"
+```
+
+The traffic pattern consists of periodic beacons—small packets sent at regular intervals. This is a classic indicator of Command and Control (C2) communication.
+
+### Data Exfiltration
+
+Later in the capture, we see a large burst of outbound traffic to the C2 server over an unencrypted FTP connection. Filtering for FTP (`ftp`), we can see the credentials used to log in.
+
+Following the FTP data stream (`ftp-data`), we discover that a ZIP archive named `sensitive_data.zip` was exfiltrated. By extracting this ZIP file from the PCAP, we can determine the exact files the attacker managed to steal.
+
+## Conclusion
+
+The analysis of the PCAP file revealed a complete infection lifecycle: initial compromise via a disguised executable, establishment of C2 communication using DGA and TLS, and finally, data exfiltration over FTP.
