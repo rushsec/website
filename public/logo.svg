@@ -1,6 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" fill="none">
-  <path d="M110 30 L165 50 V95 C165 130 140 153 110 165 C80 153 55 130 55 95 V50 Z" stroke="#ff5a1f" stroke-width="4" stroke-linejoin="round" fill="none"/>
-  <path d="M88 71 L114 95 L88 119" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M120 71 L146 95 L120 119" stroke="#ff5a1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <text x="195" y="115" font-family="Inter, system-ui, sans-serif" font-size="52" font-weight="600" fill="#e6edf3">Rush<tspan fill="#ff5a1f">Sec</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 140" fill="none">
+  <!-- Shield outline in phosphor green (#2bd97c) -->
+  <path d="M60 20 L105 36 V72 C105 100 85 118 60 128 C35 118 15 100 15 72 V36 Z" stroke="#2bd97c" stroke-width="3.5" stroke-linejoin="round" fill="none"/>
+  <!-- Two forward chevrons: one off-white (#dce8e1), one green (#2bd97c) -->
+  <path d="M42 53 L63 72 L42 91" stroke="#dce8e1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M68 53 L89 72 L68 91" stroke="#2bd97c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- RushSec wordmark with "Sec" in green -->
+  <text x="130" y="74" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="46" font-weight="600" fill="#dce8e1" letter-spacing="-0.5">Rush<tspan fill="#2bd97c">Sec</tspan></text>
+  <!-- Small red square before the tagline -->
+  <rect x="132" y="93" width="7" height="7" rx="1" fill="#ff4d5e"/>
+  <!-- Tagline -->
+  <text x="148" y="100" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="500" fill="#7f948a" letter-spacing="1.5">SECURITY RESEARCH &amp; TOOLS</text>
 </svg>

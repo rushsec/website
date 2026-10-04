@@ -21,9 +21,9 @@ export function calculateReadingTime(content: string): string {
 export function getStatusColor(status: string): string {
   switch (status) {
     case 'stable':
-      return 'text-green-400 bg-green-400/10 border-green-400/20'
+      return 'text-accent bg-accent/10 border-accent/25'
     case 'in-progress':
-      return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
+      return 'text-amber-400 bg-amber-400/10 border-amber-400/20'
     case 'archived':
       return 'text-muted bg-muted/10 border-muted/20'
     default:
@@ -34,13 +34,13 @@ export function getStatusColor(status: string): string {
 export function getDifficultyColor(difficulty: string): string {
   switch (difficulty) {
     case 'Easy':
-      return 'text-green-400 bg-green-400/10 border-green-400/20'
+      return 'text-accent bg-accent/10 border-accent/30'
     case 'Medium':
-      return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20'
+      return 'text-amber-400 bg-amber-400/10 border-amber-400/25'
     case 'Hard':
-      return 'text-orange-400 bg-orange-400/10 border-orange-400/20'
+      return 'text-accent-red bg-accent-red/10 border-accent-red/30'
     case 'Insane':
-      return 'text-red-400 bg-red-400/10 border-red-400/20'
+      return 'text-accent-red bg-accent-red/15 border-accent-red/40 font-semibold'
     default:
       return 'text-muted bg-muted/10 border-muted/20'
   }

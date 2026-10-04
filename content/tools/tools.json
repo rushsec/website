@@ -2,9 +2,10 @@
   {
     "name": "netprobe",
     "slug": "netprobe",
-    "description": "Lightweight network reconnaissance tool for authorized penetration testing engagements.",
+    "description": "Network reconnaissance and service mapping utility designed for authorized penetration testing.",
     "language": "Python",
     "status": "stable",
+    "category": "offensive",
     "repo": "https://github.com/rushsec/netprobe",
     "stars": 0,
     "lastUpdate": "2026-09-15"
@@ -12,9 +13,10 @@
   {
     "name": "logwatch",
     "slug": "logwatch",
-    "description": "Real-time log analysis and alerting daemon for defensive security monitoring.",
+    "description": "Real-time log analysis and intrusion detection daemon for defensive infrastructure monitoring.",
     "language": "Go",
     "status": "in-progress",
+    "category": "defensive",
     "repo": "https://github.com/rushsec/logwatch",
     "stars": 0,
     "lastUpdate": "2026-10-01"
@@ -22,9 +24,10 @@
   {
     "name": "hashcheck",
     "slug": "hashcheck",
-    "description": "File integrity checker that compares hashes against known-good baselines.",
+    "description": "File integrity verification tool that audits hashes against baseline cryptographic manifests.",
     "language": "Rust",
     "status": "stable",
+    "category": "defensive",
     "repo": "https://github.com/rushsec/hashcheck",
     "stars": 0,
     "lastUpdate": "2026-08-22"

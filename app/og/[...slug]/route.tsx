@@ -5,12 +5,11 @@ export const runtime = 'edge'
 
 export async function GET(request: NextRequest) {
   const { pathname } = request.nextUrl
-  // Extract title from URL params or use default
   const segments = pathname.split('/').filter(Boolean)
   // Remove 'og' prefix
   segments.shift()
   
-  const title = segments.length > 0 
+  const rawTitle = segments.length > 0 
     ? decodeURIComponent(segments.join(' / ')).replace(/-/g, ' ')
     : 'RushSec'
 
@@ -24,27 +23,39 @@ export async function GET(request: NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          backgroundColor: '#0d1117',
+          backgroundColor: '#050a08',
+          border: '1px solid #1c2b24',
           padding: '80px',
           fontFamily: 'system-ui, sans-serif',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
           {/* Shield icon */}
-          <svg width="60" height="60" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100 25 L155 45 V90 C155 125 130 148 100 160 C70 148 45 125 45 90 V45 Z" stroke="#ff5a1f" strokeWidth="5" strokeLinejoin="round" />
-            <path d="M78 66 L104 90 L78 114" stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M110 66 L136 90 L110 114" stroke="#ff5a1f" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60 12 L102 27 V60 C102 86 83 102 60 111 C37 102 18 86 18 60 V27 Z" stroke="#2bd97c" strokeWidth="4.5" strokeLinejoin="round" />
+            <path d="M43 43 L63 60 L43 77" stroke="#dce8e1" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M67 43 L87 60 L67 77" stroke="#2bd97c" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span style={{ color: '#e6edf3', fontSize: '36px', fontWeight: 600, marginLeft: '20px' }}>
-            Rush<span style={{ color: '#ff5a1f' }}>Sec</span>
-          </span>
+          <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '24px' }}>
+            <span style={{ color: '#dce8e1', fontSize: '38px', fontWeight: 600, letterSpacing: '-0.5px' }}>
+              Rush<span style={{ color: '#2bd97c' }}>Sec</span>
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '4px' }}>
+              <div style={{ width: '6px', height: '6px', backgroundColor: '#ff4d5e', borderRadius: '1px', marginRight: '8px' }}></div>
+              <span style={{ color: '#7f948a', fontSize: '13px', fontFamily: 'monospace', letterSpacing: '1.5px' }}>
+                SECURITY RESEARCH &amp; TOOLS
+              </span>
+            </div>
+          </div>
         </div>
-        <div style={{ color: '#e6edf3', fontSize: '48px', fontWeight: 600, lineHeight: 1.2, textTransform: 'capitalize' }}>
-          {title}
+
+        <div style={{ color: '#dce8e1', fontSize: '50px', fontWeight: 600, lineHeight: 1.2, textTransform: 'capitalize', maxWidth: '1000px' }}>
+          {rawTitle}
         </div>
-        <div style={{ color: '#8b949e', fontSize: '24px', marginTop: '20px' }}>
-          Cybersecurity Labs & Tools
+
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: '30px', color: '#7f948a', fontSize: '20px', fontFamily: 'monospace' }}>
+          <span style={{ color: '#2bd97c', marginRight: '8px' }}>&gt;</span>
+          <span>rushsec.dev / legal &amp; ethical security research</span>
         </div>
       </div>
     ),

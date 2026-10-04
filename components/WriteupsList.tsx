@@ -9,7 +9,7 @@ interface WriteupsListProps {
   writeups: Writeup[]
 }
 
-const CATEGORIES: ('All' | Category)[] = ['All', 'CTF', 'Web', 'Network', 'Forensics', 'Defensive']
+const CATEGORIES: ('All' | Category)[] = ['All', 'CTF', 'Web', 'Network', 'Forensics', 'Offensive', 'Defensive']
 const DIFFICULTIES: ('All' | Difficulty)[] = ['All', 'Easy', 'Medium', 'Hard', 'Insane']
 
 export default function WriteupsList({ writeups }: WriteupsListProps) {
@@ -44,70 +44,85 @@ export default function WriteupsList({ writeups }: WriteupsListProps) {
         <div className="relative">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            width="20" height="20" viewBox="0 0 24 24" 
+            width="18" height="18" viewBox="0 0 24 24" 
             fill="none" stroke="currentColor" strokeWidth="2" 
             strokeLinecap="round" strokeLinejoin="round" 
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+            aria-hidden="true"
           >
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <input
             type="text"
-            placeholder="Search writeups..."
+            placeholder="Search writeups by title, CVE, tool, or tag..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-background border border-border rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:border-accent/50 transition-colors"
+            className="w-full bg-background border border-border rounded-lg pl-10 pr-4 py-2.5 text-primary placeholder:text-muted/70 text-sm focus:outline-none focus:border-accent transition-colors font-mono"
+            aria-label="Search writeups"
           />
         </div>
 
         <div className="space-y-4">
           <div>
-            <h4 className="font-mono text-xs text-muted mb-2 uppercase tracking-wider">Category</h4>
+            <h4 className="font-mono text-xs text-muted mb-2.5 uppercase tracking-wider">Category</h4>
             <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={cn(
-                    "font-mono text-sm px-3 py-1 rounded-full transition-colors border",
-                    selectedCategory === cat 
-                      ? "border-accent text-accent bg-accent/10" 
-                      : "border-border bg-background text-muted hover:text-primary hover:border-primary/50"
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
+              {CATEGORIES.map(cat => {
+                const isSelected = selectedCategory === cat
+                const isOffensive = cat === 'Offensive'
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={cn(
+                      "font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full transition-colors border",
+                      isSelected 
+                        ? (isOffensive 
+                            ? "border-accent-red text-accent-red bg-accent-red/10" 
+                            : "border-accent text-accent bg-accent/10")
+                        : "border-border bg-background text-muted hover:text-primary hover:border-border"
+                    )}
+                  >
+                    {cat}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
           <div>
-            <h4 className="font-mono text-xs text-muted mb-2 uppercase tracking-wider">Difficulty</h4>
+            <h4 className="font-mono text-xs text-muted mb-2.5 uppercase tracking-wider">Difficulty</h4>
             <div className="flex flex-wrap gap-2">
-              {DIFFICULTIES.map(diff => (
-                <button
-                  key={diff}
-                  onClick={() => setSelectedDifficulty(diff)}
-                  className={cn(
-                    "font-mono text-sm px-3 py-1 rounded-full transition-colors border",
-                    selectedDifficulty === diff 
-                      ? "border-accent text-accent bg-accent/10" 
-                      : "border-border bg-background text-muted hover:text-primary hover:border-primary/50"
-                  )}
-                >
-                  {diff}
-                </button>
-              ))}
+              {DIFFICULTIES.map(diff => {
+                const isSelected = selectedDifficulty === diff
+                const isHigh = diff === 'Hard' || diff === 'Insane'
+                return (
+                  <button
+                    key={diff}
+                    onClick={() => setSelectedDifficulty(diff)}
+                    className={cn(
+                      "font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full transition-colors border",
+                      isSelected 
+                        ? (isHigh 
+                            ? "border-accent-red text-accent-red bg-accent-red/10" 
+                            : "border-accent text-accent bg-accent/10")
+                        : "border-border bg-background text-muted hover:text-primary hover:border-border"
+                    )}
+                  >
+                    {diff}
+                  </button>
+                )
+              })}
             </div>
           </div>
           
-          <div>
-             <h4 className="font-mono text-xs text-muted mb-2 uppercase tracking-wider">Sort</h4>
+          <div className="flex items-center gap-3 pt-2">
+             <label htmlFor="sort-select" className="font-mono text-xs text-muted uppercase tracking-wider">Sort:</label>
              <select
+               id="sort-select"
                value={sortBy}
                onChange={(e) => setSortBy(e.target.value as 'date-desc' | 'date-asc')}
-               className="bg-background border border-border rounded text-sm text-primary px-3 py-1 font-mono focus:outline-none focus:border-accent/50"
+               className="bg-background border border-border rounded px-3 py-1 text-xs text-primary font-mono focus:outline-none focus:border-accent"
              >
                <option value="date-desc">Newest First</option>
                <option value="date-asc">Oldest First</option>
@@ -123,8 +138,8 @@ export default function WriteupsList({ writeups }: WriteupsListProps) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-surface border border-border rounded-lg">
-          <p className="text-muted font-mono">No writeups found matching your criteria.</p>
+        <div className="text-center py-16 bg-surface border border-border rounded-lg">
+          <p className="text-muted font-mono text-sm">No writeups found matching your query.</p>
         </div>
       )}
     </div>

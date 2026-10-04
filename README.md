@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000).
 title: "Your Writeup Title"
 date: "2026-01-15"
 description: "A one-sentence summary of the writeup."
-category: "CTF"        # CTF | Web | Network | Forensics | Defensive
+category: "CTF"        # CTF | Web | Network | Forensics | Offensive | Defensive
 difficulty: "Medium"   # Easy | Medium | Hard | Insane
 tags: ["tag1", "tag2"]
 published: true

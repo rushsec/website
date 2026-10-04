@@ -8,16 +8,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#0d1117',
-        surface: '#161b22',
-        border: '#30363d',
-        primary: '#e6edf3',
-        muted: '#8b949e',
-        accent: '#ff5a1f',
+        background: 'var(--background)',
+        surface: 'var(--surface)',
+        border: 'var(--border)',
+        primary: 'var(--text)',
+        text: 'var(--text)',
+        muted: 'var(--text-muted)',
+        'text-muted': 'var(--text-muted)',
+        accent: {
+          DEFAULT: 'var(--accent)',
+          green: 'var(--accent)',
+          red: 'var(--accent-red)',
+        },
+        'accent-red': 'var(--accent-red)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)'],
+        sans: ['var(--font-sans)', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
       },
       maxWidth: {
         content: '1200px',

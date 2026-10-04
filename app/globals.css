@@ -2,70 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #050a08;
+  --surface: #0b1410;
+  --border: #1c2b24;
+  --accent: #2bd97c;
+  --accent-red: #ff4d5e;
+  --text: #dce8e1;
+  --text-muted: #7f948a;
+}
+
 @layer base {
   * {
-    border-color: theme('colors.border');
+    border-color: var(--border);
   }
   
   body {
-    @apply bg-background text-primary antialiased;
+    background-color: var(--background);
+    color: var(--text);
+    @apply antialiased;
   }
 
   ::selection {
-    @apply bg-accent/20 text-primary;
+    background-color: rgba(43, 217, 124, 0.2);
+    color: var(--text);
   }
 
   /* Focus rings */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-accent;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   /* Scrollbar styling */
   ::-webkit-scrollbar {
-    @apply w-2;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-background;
+    background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
+    background: var(--border);
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted;
+    background: var(--text-muted);
   }
 }
 
 @layer components {
   /* MDX prose styles */
   .prose {
-    @apply text-primary leading-relaxed;
+    color: var(--text);
+    @apply leading-relaxed;
   }
-  .prose h1 { @apply text-3xl font-semibold mt-10 mb-4 text-primary; }
-  .prose h2 { @apply text-2xl font-semibold mt-8 mb-3 text-primary; }
-  .prose h3 { @apply text-xl font-semibold mt-6 mb-2 text-primary; }
-  .prose h4 { @apply text-lg font-semibold mt-4 mb-2 text-primary; }
-  .prose p { @apply mb-4 text-primary/90; }
-  .prose a { @apply text-accent hover:underline; }
-  .prose strong { @apply font-semibold text-primary; }
+  .prose h1 { @apply text-3xl font-semibold mt-10 mb-4; color: var(--text); }
+  .prose h2 { @apply text-2xl font-semibold mt-8 mb-3; color: var(--text); }
+  .prose h3 { @apply text-xl font-semibold mt-6 mb-2; color: var(--text); }
+  .prose h4 { @apply text-lg font-semibold mt-4 mb-2; color: var(--text); }
+  .prose p { @apply mb-4; color: rgba(220, 232, 225, 0.92); }
+  .prose a { color: var(--accent); @apply hover:underline; }
+  .prose strong { @apply font-semibold; color: var(--text); }
   .prose ul { @apply list-disc pl-6 mb-4 space-y-1; }
   .prose ol { @apply list-decimal pl-6 mb-4 space-y-1; }
-  .prose li { @apply text-primary/90; }
+  .prose li { color: rgba(220, 232, 225, 0.92); }
   .prose blockquote {
-    @apply border-l-2 border-accent pl-4 italic text-muted my-4;
+    border-left: 2px solid var(--accent);
+    color: var(--text-muted);
+    @apply pl-4 italic my-4;
   }
-  .prose hr { @apply border-border my-8; }
+  .prose hr { border-color: var(--border); @apply my-8; }
   .prose img { @apply rounded-lg my-6; }
   .prose table { @apply w-full border-collapse my-6; }
-  .prose th { @apply border border-border px-4 py-2 text-left font-semibold bg-surface; }
-  .prose td { @apply border border-border px-4 py-2; }
+  .prose th { border: 1px solid var(--border); background-color: var(--surface); @apply px-4 py-2 text-left font-semibold; }
+  .prose td { border: 1px solid var(--border); @apply px-4 py-2; }
   .prose code:not(pre code) {
-    @apply font-mono text-sm bg-surface px-1.5 py-0.5 rounded text-accent;
+    background-color: var(--surface);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    @apply font-mono text-sm px-1.5 py-0.5 rounded;
   }
   .prose pre {
-    @apply bg-surface border border-border rounded-lg p-4 overflow-x-auto my-6 text-sm;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    @apply rounded-lg p-4 overflow-x-auto my-6 text-sm;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-primary;
+    @apply bg-transparent p-0;
+    color: var(--text);
   }
 }
 

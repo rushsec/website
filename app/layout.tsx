@@ -18,11 +18,30 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://rushsec.dev'),
   title: 'RushSec — Cybersecurity Labs & Tools',
-  description: 'CTF writeups, lab notes, defensive tools, and security research by Md. Shihab Shahriar Rashu.',
+  description: 'CTF writeups, lab notes, offensive and defensive security tools, and research by Md. Shihab Shahriar Rashu.',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
+  openGraph: {
+    title: 'RushSec — Cybersecurity Labs & Tools',
+    description: 'CTF writeups, lab notes, offensive and defensive security tools, and research.',
+    url: 'https://rushsec.dev',
+    siteName: 'RushSec',
+    images: [{ url: '/og/home' }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'RushSec — Cybersecurity Labs & Tools',
+    description: 'CTF writeups, lab notes, offensive and defensive security tools, and research.',
+    images: ['/og/home'],
+  },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0d1117',
+  themeColor: '#050a08',
 }
 
 export default function RootLayout({
@@ -32,10 +51,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body>
+      <body className="min-h-screen flex flex-col font-sans">
         <SkipToContent />
         <Header />
-        <main id="main-content">
+        <main id="main-content" className="flex-grow pt-16">
           {children}
         </main>
         <Footer />

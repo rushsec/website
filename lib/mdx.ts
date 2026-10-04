@@ -76,7 +76,7 @@ export function extractHeadings(content: string): { id: string; text: string; le
 // Validate frontmatter at build time
 export function validateFrontmatter(data: Record<string, unknown>, filename: string): WriteupFrontmatter {
   const required = ['title', 'date', 'description', 'category', 'difficulty', 'tags', 'published']
-  const validCategories = ['CTF', 'Web', 'Network', 'Forensics', 'Defensive']
+  const validCategories = ['CTF', 'Web', 'Network', 'Forensics', 'Offensive', 'Defensive']
   const validDifficulties = ['Easy', 'Medium', 'Hard', 'Insane']
   
   for (const field of required) {

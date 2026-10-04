@@ -1,4 +1,4 @@
-export type Category = 'CTF' | 'Web' | 'Network' | 'Forensics' | 'Defensive'
+export type Category = 'CTF' | 'Web' | 'Network' | 'Forensics' | 'Offensive' | 'Defensive'
 export type Difficulty = 'Easy' | 'Medium' | 'Hard' | 'Insane'
 export type ToolStatus = 'stable' | 'in-progress' | 'archived'
 
@@ -25,6 +25,7 @@ export interface Tool {
   description: string
   language: string
   status: ToolStatus
+  category?: 'offensive' | 'defensive'
   repo: string
   stars?: number
   lastUpdate?: string
